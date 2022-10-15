@@ -5,7 +5,7 @@ import sys
 
 # путь до текущей папки
 def viewCurDir():
-    print(f'Текущий путь: {os.getcwd()}')
+    return f'Текущий путь: {os.getcwd()}'
 def getInput ():
     return input("Введите название: ")
 def addFD (name):
@@ -28,15 +28,21 @@ def copyFD (name):
         else:
             shutil.copytree(name, f'copy_{name}')
 def view():
-    print(os.listdir())
+    return os.listdir()
+
 def viewD():
-    print(list(filter(lambda s: os.path.isdir(s), os.listdir())))
+    return list(map(lambda x: x +' ', filter(lambda s: os.path.isdir(s), os.listdir())))
 def viewF():
-    print(list(filter(lambda s: os.path.isfile(s), os.listdir())))
+    return list(map(lambda x: x +' ', filter(lambda s: os.path.isfile(s), os.listdir())))
 def chDir_(name):
     os.chdir(name)
 def getOsInfo():
-    print('My OS is', sys.platform, '(', os.name, ')')
+    return 'My OS is', sys.platform, '(', os.name, ')'
 def about():
-    print('Создатель программы Шалыгин Алексей')
-
+    return 'Создатель программы Шалыгин Алексей'
+def quit():
+    with open('listdir.txt', 'w') as f:
+        f.write('files:\n')
+        f.writelines(viewF())
+        f.write('\ndirs:\n')
+        f.writelines(viewD())

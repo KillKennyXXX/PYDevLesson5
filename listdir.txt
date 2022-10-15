@@ -1,0 +1,4 @@
+files:
+console_manager.py history.json listdir.txt main.py money.json test_python.py use_functions.py victory.py 
+dirs:
+.git .idea .pytest_cache venv __pycache__ 
