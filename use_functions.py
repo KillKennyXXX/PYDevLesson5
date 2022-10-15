@@ -1,37 +1,67 @@
+import json
+
+def history_back():
+    try:
+        with open('history.json', 'r') as f:
+            result = json.load(f)
+            return result
+    except:
+        return {}
+
+def money_back():
+    try:
+        with open('money.json', 'r') as f:
+            result = json.load(f)
+            return int(result)
+    except:
+        return 0
 
 money = 0
 history = {}
-def shop():
 
-    def addMoney():
-        global money
-        try:
-            sum = int(input('Введите сумму на сколько пополнить счет'))
-        except ValueError:
-            print('Необходимо ввести число')
-        money += sum if sum > 0 else 0
-        #print(money)
-
-    def purchase():
-        global money
-        global history
-        try:
-            sum = int(input('Введите сумму покупки'))
-        except ValueError:
-            print('Необходимо ввести число')
-        if sum > 0 and sum <= money:
-            money -= sum
-            name = input('Введите название покупки')
-            history[name] =sum
-        else:
-            print('Покупку произвести невозможно')
+if __name__ == '__main__':
+    money = money_back()
+    history = history_back()
 
 
-    def history():
-        global history
-        for key, values in history.items():
-            print(f'{key} --> {values}')
 
+
+def addMoney(money):
+
+    try:
+        sum = int(input('Введите сумму на сколько пополнить счет'))
+    except ValueError:
+        print('Необходимо ввести число')
+    money += sum if sum > 0 else 0
+    #print(money)
+
+def purchase(money, history):
+    try:
+        sum = int(input('Введите сумму покупки'))
+    except ValueError:
+        print('Необходимо ввести число')
+    if sum > 0 and sum <= money:
+        money -= sum
+        name = input('Введите название покупки')
+        history[name] =sum
+    else:
+        print('Покупку произвести невозможно')
+
+
+def history(history):
+    for key, values in history.items():
+        return f'{key} --> {values}'
+
+def money_save(money):
+    with open('money.json', 'w') as f:
+        json.dump(money, f)
+def history_save(history):
+    with open('history.json', 'w') as f:
+        json.dump(history, f)
+
+    # print(money)
+
+def view(money, history):
     while True:
         print('1. пополнение счета')
         print('2. покупка')
@@ -40,12 +70,14 @@ def shop():
 
         choice = input('Выберите пункт меню')
         if choice == '1':
-            addMoney()
+            addMoney(money)
         elif choice == '2':
-            purchase()
+            purchase(money, history)
         elif choice == '3':
-            history()
+            print(history(history))
         elif choice == '4':
+            money_save(money)
+            history_save(history)
             break
         else:
             print('Неверный пункт меню')

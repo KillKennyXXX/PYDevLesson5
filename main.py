@@ -28,18 +28,19 @@ while True:
     elif choice == '5':
         print(cm.viewF())
     elif choice == '6':
-        print( cm.viewD())
+        print(cm.viewD())
     elif choice == '7':
-        print( cm.getOsInfo())
+        print(cm.getOsInfo())
     elif choice == '8':
-        print( cm.about())
+        print(cm.about())
     elif choice == '9':
         victory.game()
     elif choice == '10':
-        bank.shop()
+        bank.view(bank.money_back(), bank.history_back())
     elif choice == '11':
         cm.chDir_(cm.getInput())
     elif choice == '12':
+        cm.quit()
         break
     else:
         print('Неверный пункт меню')

@@ -1,5 +1,7 @@
+import os
 from math import pi, sqrt, pow, hypot
 import console_manager as cm
+import use_functions as bank
 def test_filter():
     assert list(filter(lambda x: x % 2 == 0, [1, 2, 3, 4, 5, 6])) == [2, 4, 6]
     assert list(filter(lambda x: x % 3 == 0 or x == 1, [1, 2, 3, 4, 5, 6]) )== [1, 3, 6]
@@ -7,7 +9,7 @@ def test_filter():
 def test_map():
     assert list(map(lambda x: x, [1, 2, 3, 4, 5, 6])) == [1, 2, 3, 4, 5, 6]
     assert list(map(lambda x: x + 1, [1, 2, 3, 4, 5, 6])) == [2, 3, 4, 5, 6, 7]
-    assert list(map(lambda x: x ** 2, [1, 2, 3])) ==[1, 4, 9]
+    assert list(map(lambda x: x ** 2, [1, 2, 3])) == [1, 4, 9]
 def test_sorted():
     assert list(sorted([3, 2, 3, 4, 5, 1])) == [1, 2, 3, 3, 4, 5]
     assert list(sorted([3, 2, 3, 4, 5, 1], reverse=True)) == [5, 4, 3, 3, 2, 1]
@@ -21,14 +23,24 @@ def test_math():
     assert hypot(2, 4) == 4.47213595499958
     assert hypot(3, 4) == 5.0
     assert hypot(-2, 3) == 3.6055512754639896
+
+def test_use_functions_dirty():
+    bank.history_save(bank.history_back())
+    assert os.path.exists('history.json')
+    bank.money_save(bank.money_back())
+    assert os.path.exists('money.json')
+
 def test_console_manager():
-    assert cm.viewF() == ['console_manager.py', 'main.py', 'test_python.py', 'use_functions.py', 'victory.py']
-    assert cm.viewD() == ['.git', '.idea', '.pytest_cache', 'venv', '__pycache__']
-    assert cm.view() == ['.git', '.idea', '.pytest_cache',  'console_manager.py', 'main.py', 'test_python.py', 'use_functions.py', 'venv', 'victory.py', '__pycache__']
+    assert cm.viewF() == ['console_manager.py ', 'history.json ', 'listdir.txt ', 'main.py ', 'money.json ', 'test_python.py ', 'use_functions.py ', 'victory.py ']
+    assert cm.viewD() == ['.git ', '.idea ', '.pytest_cache ', 'venv ', '__pycache__ ']
+    assert cm.view() == ['.git', '.idea','.pytest_cache', 'console_manager.py', 'history.json',  'listdir.txt', 'main.py',  'money.json','test_python.py', 'use_functions.py','venv', 'victory.py', '__pycache__' ]
     assert cm.about() == 'Создатель программы Шалыгин Алексей'
     assert cm.getOsInfo() == ('My OS is', 'win32', '(', 'nt', ')')
 
-def test_mkdir():
+
+
+
+def test_console_manager_dirty():
     """Тест для функции с побочным эффектом"""
     cm.addFD('folder_mk')
     # папка есть на диске
@@ -39,3 +51,5 @@ def test_mkdir():
     assert 'folder_mk' not in cm.view()
     cm.dellFD('copy_folder_mk')
     assert 'copy_folder_mk' not in cm.view()
+    cm.quit()
+    assert os.path.exists('listdir.txt')
