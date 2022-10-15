@@ -24,15 +24,15 @@ while True:
     elif choice == '3':
         cm.copyFD(cm.getInput())
     elif choice == '4':
-        cm.view()
+        print(cm.view())
     elif choice == '5':
-        cm.viewF()
+        print(cm.viewF())
     elif choice == '6':
-        cm.viewD()
+        print( cm.viewD())
     elif choice == '7':
-        cm.getOsInfo()
+        print( cm.getOsInfo())
     elif choice == '8':
-        cm.about()
+        print( cm.about())
     elif choice == '9':
         victory.game()
     elif choice == '10':
