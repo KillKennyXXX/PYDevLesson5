@@ -1,5 +1,8 @@
 import json
 
+money = 0
+history = {}
+
 def history_back():
     try:
         with open('history.json', 'r') as f:
@@ -15,13 +18,6 @@ def money_back():
             return int(result)
     except:
         return 0
-
-money = 0
-history = {}
-
-if __name__ == '__main__':
-    money = money_back()
-    history = history_back()
 
 
 
@@ -48,9 +44,10 @@ def purchase(money, history):
         print('Покупку произвести невозможно')
 
 
-def history(history):
-    for key, values in history.items():
-        return f'{key} --> {values}'
+def history_view(history):
+    listA = []
+    [listA.append(f'{key} --> {values}') for key, values in history.items()]
+    return listA
 
 def money_save(money):
     with open('money.json', 'w') as f:
@@ -74,7 +71,7 @@ def view(money, history):
         elif choice == '2':
             purchase(money, history)
         elif choice == '3':
-            print(history(history))
+            print(history_view(history))
         elif choice == '4':
             money_save(money)
             history_save(history)
@@ -82,3 +79,7 @@ def view(money, history):
         else:
             print('Неверный пункт меню')
 
+if __name__ == '__main__':
+    money = money_back()
+    history = history_back()
+    view(money, history)
