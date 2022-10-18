@@ -2,6 +2,16 @@ import json
 
 money = 0
 history = {}
+def decorator(f):
+    # inner - итоговая функция с новым поведение
+    def inner(*args, **kwargs):
+        # поведение до вызова
+        print('*' * 15)
+        print(f(*args, **kwargs))
+        # поведение после вызова
+        print('*' * 15)
+    # возвращается функция inner с новым поведением
+    return inner
 
 def history_back():
     try:
@@ -19,11 +29,7 @@ def money_back():
     except:
         return 0
 
-
-
-
 def addMoney(money):
-
     try:
         sum = int(input('Введите сумму на сколько пополнить счет'))
     except ValueError:
@@ -43,7 +49,7 @@ def purchase(money, history):
     else:
         print('Покупку произвести невозможно')
 
-
+@decorator
 def history_view(history):
     listA = []
     [listA.append(f'{key} --> {values}') for key, values in history.items()]
@@ -71,7 +77,7 @@ def view(money, history):
         elif choice == '2':
             purchase(money, history)
         elif choice == '3':
-            print(history_view(history))
+            history_view(history)
         elif choice == '4':
             money_save(money)
             history_save(history)

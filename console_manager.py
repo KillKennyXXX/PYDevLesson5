@@ -10,23 +10,13 @@ def getInput ():
     return input("Введите название: ")
 def addFD (name):
     if not os.path.exists(f'{name}'):
-        if name.find('.') != -1:
-            f = open(name, "w")
-            f.close()
-        else:
-            os.mkdir(name)
+        open(name, "w").close() if name.find('.') != -1 else os.mkdir(name)
 def dellFD (name):
     if os.path.exists(f'{name}'):
-        if os.path.isfile(os.path.join(os.getcwd(), name)):
-            os.remove(name)
-        else:
-            os.rmdir(name)
+        os.remove(name) if os.path.isfile(os.path.join(os.getcwd(), name)) else os.rmdir(name)
 def copyFD (name):
     if os.path.exists(f'{name}'):
-        if name.find('.') != -1:
-            shutil.copy(name, f'copy_{name}')
-        else:
-            shutil.copytree(name, f'copy_{name}')
+        shutil.copy(name, f'copy_{name}') if name.find('.') != -1 else shutil.copytree(name, f'copy_{name}')
 def view():
     return os.listdir()
 
